@@ -19,7 +19,7 @@ public class BrandRepository : IRepository<Brand>
 
     public async Task<IEnumerable<Brand>> Get() => await _context.Brands.ToListAsync();
 
-    public async Task<Brand> GetById(int id) => await _context.Brands.FindAsync(id);
+    public async Task<Brand?> GetById(int id) => await _context.Brands.FindAsync(id);
 
     public async Task Save() => await _context.SaveChangesAsync();
 

@@ -4,3 +4,130 @@ GET {{Backend_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+### Get inventory
+GET {{Backend_HostAddress}}/api/inventory
+Accept: application/json
+
+### Get inventory item
+GET {{Backend_HostAddress}}/api/inventory/1
+Accept: application/json
+
+### Create inventory item (replace BeerId with an existing beer ID)
+POST {{Backend_HostAddress}}/api/inventory
+Content-Type: application/json
+
+{
+  "quantity": 100,
+  "batchNumber": 202611,
+  "beerId": 1,
+  "productionDate": "2026-11-01",
+  "purchasePrice": 25.50,
+  "storageSection": "A-01",
+  "bestBeforeDate": "2027-11-01"
+}
+
+### Update inventory item
+PUT {{Backend_HostAddress}}/api/inventory/1
+Content-Type: application/json
+
+{
+  "quantity": 120,
+  "batchNumber": 202611,
+  "beerId": 1,
+  "productionDate": "2026-11-01",
+  "purchasePrice": 25.50,
+  "storageSection": "A-01",
+  "bestBeforeDate": "2027-11-01"
+}
+
+### Delete inventory item
+DELETE {{Backend_HostAddress}}/api/inventory/1
+
+### Get all suppliers
+GET {{Backend_HostAddress}}/api/supplier
+Accept: application/json
+
+### Get supplier by ID (404 when missing)
+GET {{Backend_HostAddress}}/api/supplier/1
+Accept: application/json
+
+### Create supplier
+POST {{Backend_HostAddress}}/api/supplier
+Content-Type: application/json
+
+{
+  "name": "Cervezas del Norte",
+  "country": "Mexico",
+  "phone": "+52551234567"
+}
+
+### Update supplier
+PUT {{Backend_HostAddress}}/api/supplier/1
+Content-Type: application/json
+
+{
+  "name": "Cervezas del Norte",
+  "country": "Mexico",
+  "phone": "+52551234567"
+}
+
+### Delete supplier (409 when brands are associated)
+DELETE {{Backend_HostAddress}}/api/supplier/1
+
+### Invalid supplier: required fields are empty (400)
+POST {{Backend_HostAddress}}/api/supplier
+Content-Type: application/json
+
+{
+  "name": "",
+  "country": "",
+  "phone": ""
+}
+
+### Get all sales
+GET {{Backend_HostAddress}}/api/sale
+Accept: application/json
+
+### Get sale by ID (404 when missing)
+GET {{Backend_HostAddress}}/api/sale/1
+Accept: application/json
+
+### Create sale (replace InventoryId with an existing inventory ID)
+POST {{Backend_HostAddress}}/api/sale
+Content-Type: application/json
+
+{
+  "inventoryId": 1,
+  "quantity": 2,
+  "unitPrice": 15.50,
+  "saleDate": "2026-11-13",
+  "clientName": "Cliente de prueba"
+}
+
+### Update sale
+PUT {{Backend_HostAddress}}/api/sale/1
+Content-Type: application/json
+
+{
+  "inventoryId": 1,
+  "quantity": 3,
+  "unitPrice": 15.50,
+  "saleDate": "2026-11-13",
+  "clientName": "Cliente de prueba"
+}
+
+### Delete sale
+DELETE {{Backend_HostAddress}}/api/sale/1
+
+### Invalid sale: inventory ID does not exist (400)
+POST {{Backend_HostAddress}}/api/sale
+Content-Type: application/json
+
+{
+  "inventoryId": 999999,
+  "quantity": 2,
+  "unitPrice": 15.50,
+  "saleDate": "2026-11-13",
+  "clientName": "Cliente de prueba"
+}

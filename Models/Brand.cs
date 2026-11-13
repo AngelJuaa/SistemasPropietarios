@@ -10,4 +10,9 @@ public class Brand
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int BrandId { get; set; }
     public string Name { get; set; } = string.Empty;
+
+    public int SupplierId { get; set; }
+
+    [ForeignKey(nameof(SupplierId))]
+    public virtual Supplier Supplier { get; set; } = null!;
 }

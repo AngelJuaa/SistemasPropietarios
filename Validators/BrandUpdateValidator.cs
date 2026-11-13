@@ -1,11 +1,12 @@
 using Backend.DTOs;
+using Backend.Models;
 using FluentValidation;
 
 namespace Backend.Validators
 {
     public class BrandUpdateValidator : AbstractValidator<BrandUpdateDto>
     {
-        public BrandUpdateValidator()
+        public BrandUpdateValidator(StoreContext context)
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El Id debe ser mayor a 0");
@@ -15,6 +16,8 @@ namespace Backend.Validators
 
             RuleFor(x => x.Name)
                 .Length(2, 20).WithMessage("El nombre debe medir de 2 a 20 caracteres");
+
+            RuleFor(x => x.SupplierId).MustReferenceSupplier(context);
         }
     }
 }

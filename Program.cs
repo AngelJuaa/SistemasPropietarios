@@ -3,6 +3,8 @@ using Backend.Models;
 using Backend.Repository;
 using Backend.Services;
 using Backend.Validators;
+using backend.Validators;
+using backend.DTOs;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +33,12 @@ builder.Services.AddScoped<IValidator<BeerInsertDto>, BeerInsertValidator>();
 builder.Services.AddScoped<IValidator<BeerUpdateDto>, BeerUpdateValidator>();
 builder.Services.AddScoped<IValidator<BrandInsertDto>, BrandInsertValidator>();
 builder.Services.AddScoped<IValidator<BrandUpdateDto>, BrandUpdateValidator>();
+builder.Services.AddScoped<IValidator<backend.DTOs.InventoryInsertDto>, InventoryInsertValidator>();
+builder.Services.AddScoped<IValidator<backend.DTOs.InventoryUpdateDto>, InventoryUpdateValidator>();
+builder.Services.AddScoped<IValidator<SupplierInsertDto>, SupplierInsertValidator>();
+builder.Services.AddScoped<IValidator<SupplierUpdateDto>, SupplierUpdateValidator>();
+builder.Services.AddScoped<IValidator<SaleInsertDto>, SaleInsertValidator>();
+builder.Services.AddScoped<IValidator<SaleUpdateDto>, SaleUpdateValidator>();
 
 builder.Services.AddKeyedScoped<ICommonService<BeerDto, BeerInsertDto, BeerUpdateDto>, BeerService>("beerService");
 builder.Services.AddScoped<IRepository<Beer>, BeerRepository>();
@@ -38,6 +46,15 @@ builder.Services.AddScoped<IRepository<Beer>, BeerRepository>();
 builder.Services.AddKeyedScoped<BrandService>("brandService");
 builder.Services.AddKeyedScoped<ICommonService<BrandDto, BrandInsertDto, BrandUpdateDto>, BrandService>("brandService");
 builder.Services.AddScoped<IRepository<Brand>, BrandRepository>();
+builder.Services.AddScoped<IRepository<Supplier>, SupplierRepository>();
+builder.Services.AddScoped<IRepository<Sale>, SaleRepository>();
+builder.Services.AddKeyedScoped<
+    ICommonService<SupplierDto, SupplierInsertDto, SupplierUpdateDto>,
+    SupplierService>("supplierService");
+builder.Services.AddKeyedScoped<
+    ICommonService<SaleDto, SaleInsertDto, SaleUpdateDto>,
+    SaleService>("saleService");
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();

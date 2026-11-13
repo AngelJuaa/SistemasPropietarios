@@ -19,7 +19,7 @@ public class BeerRepository : IRepository<Beer>
 
     public async Task<IEnumerable<Beer>> Get() => await _context.Beers.ToListAsync();
 
-    public async Task<Beer> GetById(int id) => await _context.Beers.FindAsync(id);
+    public async Task<Beer?> GetById(int id) => await _context.Beers.FindAsync(id);
 
     public async Task Save() => await _context.SaveChangesAsync();
 

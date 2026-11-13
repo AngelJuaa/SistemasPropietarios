@@ -21,11 +21,12 @@ public class BrandService : ICommonService<BrandDto, BrandInsertDto, BrandUpdate
         return brands.Select(b => new BrandDto
         {
             Id = b.BrandId,
-            Name = b.Name
+            Name = b.Name,
+            SupplierId = b.SupplierId
         });
     }
 
-    public async Task<BrandDto> GetById(int id)
+    public async Task<BrandDto?> GetById(int id)
     {
         var brand = await _brandRepository.GetById(id);
         if (brand == null)
@@ -36,7 +37,8 @@ public class BrandService : ICommonService<BrandDto, BrandInsertDto, BrandUpdate
         return new BrandDto
         {
             Id = brand.BrandId,
-            Name = brand.Name
+            Name = brand.Name,
+            SupplierId = brand.SupplierId
         };
     }
 
@@ -53,7 +55,8 @@ public class BrandService : ICommonService<BrandDto, BrandInsertDto, BrandUpdate
 
         var brand = new Brand
         {
-            Name = normalizedName
+            Name = normalizedName,
+            SupplierId = brandInsertDto.SupplierId
         };
 
         await _brandRepository.Add(brand);
@@ -62,11 +65,12 @@ public class BrandService : ICommonService<BrandDto, BrandInsertDto, BrandUpdate
         return new BrandDto
         {
             Id = brand.BrandId,
-            Name = brand.Name
+            Name = brand.Name,
+            SupplierId = brand.SupplierId
         };
     }
 
-    public async Task<BrandDto> Update(int id, BrandUpdateDto brandUpdateDto)
+    public async Task<BrandDto?> Update(int id, BrandUpdateDto brandUpdateDto)
     {
         var brand = await _brandRepository.GetById(id);
         if (brand == null)
@@ -84,17 +88,19 @@ public class BrandService : ICommonService<BrandDto, BrandInsertDto, BrandUpdate
         }
 
         brand.Name = normalizedName;
+        brand.SupplierId = brandUpdateDto.SupplierId;
         _brandRepository.Update(brand);
         await _brandRepository.Save();
 
         return new BrandDto
         {
             Id = brand.BrandId,
-            Name = brand.Name
+            Name = brand.Name,
+            SupplierId = brand.SupplierId
         };
     }
 
-    public async Task<BrandDto> Delete(int id)
+    public async Task<BrandDto?> Delete(int id)
     {
         var brand = await _brandRepository.GetById(id);
         if (brand == null)
@@ -114,7 +120,8 @@ public class BrandService : ICommonService<BrandDto, BrandInsertDto, BrandUpdate
         return new BrandDto
         {
             Id = brand.BrandId,
-            Name = brand.Name
+            Name = brand.Name,
+            SupplierId = brand.SupplierId
         };
     }
 

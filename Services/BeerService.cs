@@ -26,7 +26,7 @@ public class BeerService : ICommonService<BeerDto, BeerInsertDto, BeerUpdateDto>
         });
     }
 
-    public async Task<BeerDto> GetById(int id)
+    public async Task<BeerDto?> GetById(int id)
     {
         var beer = await _beerRepository.GetById(id);
         if (beer == null)
@@ -64,7 +64,7 @@ public class BeerService : ICommonService<BeerDto, BeerInsertDto, BeerUpdateDto>
         };
     }
 
-    public async Task<BeerDto> Update(int id, BeerUpdateDto beerUpdateDto)
+    public async Task<BeerDto?> Update(int id, BeerUpdateDto beerUpdateDto)
     {
         var beer = await _beerRepository.GetById(id);
         if (beer == null)
@@ -88,7 +88,7 @@ public class BeerService : ICommonService<BeerDto, BeerInsertDto, BeerUpdateDto>
         };
     }
 
-    public async Task<BeerDto> Delete(int id)
+    public async Task<BeerDto?> Delete(int id)
     {
         var beer = await _beerRepository.GetById(id);
         if (beer == null)
